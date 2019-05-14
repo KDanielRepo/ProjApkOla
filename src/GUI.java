@@ -1,18 +1,20 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class GUI {
+public class GUI implements ActionListener {
     JFrame ramka = new JFrame();
     JPanel panel = new JPanel();
     JMenu menu = new JMenu();
     JTable tabela ;
-    JLabel wpis_txt = new JLabel("kek",SwingConstants.CENTER);
-    JLabel wynik_txt = new JLabel("keks",SwingConstants.CENTER);
+    JLabel wpis_txt = new JLabel("Wpis");
+    JLabel wynik_txt = new JLabel("Wynik");
     JTextField wpis = new JTextField();
     JTextArea wynik = new JTextArea();
-    JButton zerowanie = new JButton();
-    JButton zapis = new JButton();
-    JButton pobieranie = new JButton();
+    JButton zero= new JButton("zero");
+    JButton zapis = new JButton("save");
+    JButton pobieranie = new JButton("down");
     JToolBar narzedzia = new JToolBar();
     // wykres
     JPanel stopka = new JPanel();
@@ -24,6 +26,7 @@ public class GUI {
     }
 
 public void obrys (){
+        ramka.setLayout(null);
     ramka.setSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize().width,Toolkit.getDefaultToolkit().getScreenSize().height));
     ramka.add(panel);
     //ramka.add(stopka);
@@ -31,28 +34,79 @@ public void obrys (){
     ramka.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
     panel.setLayout(null);
-    narzedzia.setBounds(1620,0,300,540);
+    panel.setBounds(0,0,1920,800);
+    narzedzia.setBounds(1620,0,300,520);
     narzedzia.setBackground(Color.black);
     panel.add(narzedzia);
 
     Object[] nazwy = {"A","B","C","D","E"};
     Object[][] a_1 = {{0,1,2,3,4},{0,1,2,3,4},{0,1,2,3,4},{0,1,2,3,4},{0,1,2,3,4}};
     tabela = new JTable(a_1,nazwy);
-    tabela.setRowHeight(70);
-    tabela.setBounds(480,320,350,350);
+    tabela.setRowHeight(80);
+    tabela.setBounds(530,320,400,400);
+
     panel.add(tabela);
 
-    wpis_txt.setBounds(900,350,100,50);
-    panel.add(wpis_txt);
-
-    wpis.setBounds(900,440,100,210);
-    wpis.setSize(100,210);
-    wpis.setBackground(Color.blue);
+    wpis.setBounds(1000,400,105,240);
+    wpis.setSize(105,240);
+    wpis.setBackground(Color.BLUE);
     panel.add(wpis);
 
-    wynik_txt.setBounds(1000,350,100,50);
-    wynik_txt.setBackground(Color.red);
+    wpis_txt.setBounds(1010,350,105,50);
+    panel.add(wpis_txt);
+
+
+
+    wynik.setBounds(1100,400,105,240);
+    wynik.setSize(105,240);
+    wynik.setBackground(Color.RED);
+    panel.add(wynik);
+
+    wynik_txt.setBounds(1110,350,105,50);
     panel.add(wynik_txt);
 
+
+
+    zero.setBounds(1000,650,70,70);
+    zero.setSize(70,70);
+    zero.addActionListener(this);
+    panel.add(zero);
+
+    zapis.setBounds(1070,650,70,70);
+    zapis.setSize(70,70);
+    zapis.addActionListener(this);
+    panel.add(zapis);
+
+    pobieranie.setBounds(1140,650,70,70);
+    pobieranie.setSize(70,70);
+    pobieranie.addActionListener(this);
+    panel.add(pobieranie);
+
+
+
+    stopka.setLayout(null);
+    stopka.setBounds(0,960,1920,40);
+    stopka.setBackground(Color.green);
+    ramka.add(stopka);
+    ramka.repaint();
+
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+    String pobierz = e.getActionCommand();
+    switch (pobierz){
+        case "zero":
+            for (int i=0;i<tabela.getColumnCount();i++){
+                for (int j=0;j<tabela.getRowCount();j++){
+                    tabela.setValueAt(0,i,j);
+                }
+            }
+            break;
+        case "save":
+            break;
+        case "down":
+            break;
+    }
     }
 }
