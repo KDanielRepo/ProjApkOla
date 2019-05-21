@@ -2,6 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 
 public class GUI implements ActionListener {
     JFrame ramka = new JFrame();
@@ -104,6 +108,14 @@ public void obrys (){
             }
             break;
         case "save":
+            File zapisf = new File("C:/ProjApkOla/plik.txt");
+            FileWriter zapisfw = new FileWriter(zapisf);
+            BufferedWriter zapisbufw = new BufferedWriter(zapisfw);
+            for(int z=0;z<tabela.getRowCount();z++){
+                for (int y=0;y<tabela.getRowCount();y++){
+                    zapisbufw.write((String)tabela.getValueAt(z,y));
+                }
+            }
             break;
         case "down":
             break;
