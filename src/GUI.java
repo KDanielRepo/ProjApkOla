@@ -1,3 +1,20 @@
+import com.l2fprod.common.swing.JButtonBar;
+import com.l2fprod.common.swing.JTipOfTheDay;
+import com.l2fprod.common.swing.tips.DefaultTip;
+import com.l2fprod.common.swing.tips.DefaultTipModel;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.chart.*;
+import javafx.stage.Stage;
+import org.freixas.jcalendar.DateEvent;
+import org.freixas.jcalendar.DateListener;
+import org.freixas.jcalendar.JCalendarCombo;
+
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -5,6 +22,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class GUI implements ActionListener {
     JFrame ramka = new JFrame();
@@ -23,8 +45,26 @@ public class GUI implements ActionListener {
     JSlider suw_pion = new JSlider(JSlider.VERTICAL,0,4,4);
     JSlider suw_poziom = new JSlider(JSlider.HORIZONTAL,0,4,0);
     int ver = 0;
+    java.util.List<String> names;
+    List<Double> values;
+    JFXPanel chart = new JFXPanel();
+    //tips
+    DefaultTipModel tipModel = new DefaultTipModel();
+    JTipOfTheDay tipOfTheDay = new JTipOfTheDay(tipModel);
+    //calendar
+    JPanel calendarPanel = new JPanel();
+    JCalendarCombo calendarCombo = new JCalendarCombo();
+    String[] nazwy = {"A","B","C","D","E"};
+    Integer[][] a_1 = {{0,1,2,3,4},{0,1,2,3,4},{0,1,2,3,4},{0,1,2,3,4},{0,1,2,3,4}};
+    TableModel tableModel = new TableModel(a_1, nazwy);
+    JButtonBar jButtonBar = new JButtonBar();
     public GUI (){
         obrys();
+        tipOfTheDay.showDialog(ramka);
+        getValueList();
+        getValues();
+        chart();
+
     }
 
 
@@ -39,13 +79,13 @@ public void obrys (){
 
     panel.setLayout(null);
     panel.setBounds(0,0,1920,800);
-    narzedzia.setBounds(1620,0,300,520);
+    narzedzia.setBounds(1820,30,64,360);
+    narzedzia.setOrientation(SwingConstants.VERTICAL);
     narzedzia.setBackground(Color.lightGray);
     panel.add(narzedzia);
 
-    Object[] nazwy = {"A","B","C","D","E"};
-    Object[][] a_1 = {{0,1,2,3,4},{0,1,2,3,4},{0,1,2,3,4},{0,1,2,3,4},{0,1,2,3,4}};
-    tabela = new JTable(a_1,nazwy);
+
+    tabela = new JTable(tableModel);
     tabela.setRowHeight(80);
     tabela.setBounds(530,320,400,400);
     panel.add(tabela);
@@ -149,26 +189,69 @@ public void obrys (){
 
     ////obrazki
 
-    JToolBar pasek_narzedzia = new JToolBar("pasekon");
+    //JToolBar pasek_narzedzia = new JToolBar("pasekon");
+    JButton przyciskave = new JButton();
+    JButton przycisksum = new JButton();
+    JButton przyciskmin = new JButton();
+    JButton przyciskmax = new JButton();
 
-    ave.addActionListener(this);
-    ImageIcon aveobraz = new ImageIcon();
-    ave.setIcon(aveobraz);
+    przyciskave.addActionListener(this);
+    ImageIcon aveobraz = new ImageIcon(getClass().getResource("./sred.png"));
+    przyciskave.setIcon(aveobraz);
 
-    sum.addActionListener(this);
-    ImageIcon sumobraz = new ImageIcon();
-    sum.setIcon(sumobraz);
+    przycisksum.addActionListener(this);
+    ImageIcon sumobraz = new ImageIcon(getClass().getResource("./sum.png"));
+    przycisksum.setIcon(sumobraz);
 
-    min.addActionListener(this);
-    ImageIcon minobraz = new ImageIcon();
-    min.setIcon(minobraz);
+    przyciskmin.addActionListener(this);
+    ImageIcon minobraz = new ImageIcon(getClass().getResource("./mini.png"));
+    przyciskmin.setIcon(minobraz);
 
-    max.addActionListener(this);
-    ImageIcon maxobraz = new ImageIcon();
-    max.setIcon(maxobraz);
+    przyciskmax.addActionListener(this);
+    ImageIcon maxobraz = new ImageIcon(getClass().getResource("./maxi.png"));
+    przyciskmax.setIcon(maxobraz);
 
+    narzedzia.add(przyciskave);
+    narzedzia.add(przyciskmax);
+    narzedzia.add(przyciskmin);
+    narzedzia.add(przycisksum);
 
+    tipModel.add(new DefaultTip("1", "Kapibary są fajne"));
+    tipModel.add(new DefaultTip("2", "I lubią pływać"));
+    tipModel.add(new DefaultTip("3", "Są bardzo fajne"));
+    tipModel.add(new DefaultTip("4", "kapibara"));
 
+    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+    calendarCombo.setDateFormat(dateFormat);
+    calendarCombo.setName("data");
+    calendarCombo.addDateListener(new DateListener() {
+        @Override
+        public void dateChanged(DateEvent dateEvent) {
+            wynik.setText(calendarCombo.getDate().toString());
+        }
+    });
+    calendarCombo.setBounds(300,0,300,40);
+    stopka.add(calendarCombo);
+    chart.setBounds(1400,400,500,800);
+    panel.add(chart);
+
+    jButtonBar.setOrientation(JButtonBar.HORIZONTAL);
+    jButtonBar.setBounds(0,40,120,500);
+    JButton jButton = new JButton("kek");
+    jButton.setBackground(Color.RED);
+    JButton jButton2 = new JButton("kek2");
+    jButton2.setBackground(Color.RED);
+    JButton jButton3 = new JButton("kek3");
+    jButton3.setBackground(Color.RED);
+    jButton.setSize(new Dimension(100,100));
+    jButton2.setSize(new Dimension(100,100));
+    jButton3.setSize(new Dimension(100,100));
+    jButtonBar.setBackground(Color.LIGHT_GRAY);
+    jButtonBar.add(jButton);
+    jButtonBar.add(jButton2);
+    jButtonBar.add(jButton3);
+    panel.add(jButtonBar);
+    jButtonBar.setVisible(true);
 
 
 
@@ -194,111 +277,45 @@ public void obrys (){
     clear.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            for (int i=0;i<tabela.getColumnCount();i++){
-                for (int j=0;j<tabela.getRowCount();j++){
-                    tabela.setValueAt(0,i,j);
-                }
+            tableModel.clearTableValues();
+            if (tableModel.changed){
+                chart();
+                tableModel.changed = false;
             }
         }
     });
     insert.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            tabela.setValueAt(Integer.parseInt(wpis.getText()),ver,suw_poziom.getValue());
+            tableModel.insertIntoTable(ver,suw_poziom.getValue(),Integer.parseInt(wpis.getText()));
+            if (tableModel.changed){
+                chart();
+                tableModel.changed = false;
+            }
         }
     });
     ave.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            float sum = 0;
-            float przez = 0;
-            for (int i = 0; i < tabela.getColumnCount(); i++) {
-                for (int j = 0; j < tabela.getRowCount(); j++) {
-                    try {
-                        sum += (Integer)tabela.getValueAt(i,j);
-                        przez++;
-                    } catch (NumberFormatException | ArithmeticException ee) {
-                       ee.printStackTrace();
-                    }
-                }
-            }
-            sum = sum/przez;
-            wynik.setText(Float.toString(sum));
+            tableModel.showAverage();
         }
     });
     sum.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            float sum = 0;
-            for (int i = 0; i < tabela.getColumnCount(); i++) {
-                for (int j = 0; j < tabela.getRowCount(); j++) {
-                    try {
-                        sum += (Integer)tabela.getValueAt(i,j);
-                    } catch (NumberFormatException | ArithmeticException ee) {
-                        ee.printStackTrace();
-                    }
-                }
-            }
-            wynik.setText(Float.toString(sum));
+            tableModel.showSum();
         }
     });
     min.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            int temp = 0;
-            int tempk = 0;
-            int min = 0;
-            for (int i = 0; i < tabela.getRowCount(); i++) {
-                for (int j = 0; j < tabela.getColumnCount(); j++) {
-                    try {
-                        temp = (Integer) tabela.getValueAt(i,j);
-                        if ((j + 1) < tabela.getColumnCount()) {
-                            tempk = (Integer) tabela.getValueAt(i,j+1);
-                        }
-                        if (i == 0 & j == 0) {
-                            if (temp < tempk) {
-                                min = temp;
-                            } else {
-                                min = tempk;
-                            }
-                        }
-                        if (temp < min) {
-                            min = temp;
-                        } else if (tempk < min) {
-                            min = tempk;
-                        }
-                    } catch (NumberFormatException ee) {
-                        ee.printStackTrace();
-                    }
-                }
-            }
-            wynik.setText(Integer.toString(min));
+            tableModel.showMinimum();
         }
     });
     max.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            int temp = 0;
-            int tempk = 0;
-            int max = 0;
-            for (int i = 0; i < tabela.getColumnCount(); i++) {
-                for (int j = 0; j < tabela.getRowCount(); j++) {
-                    try {
-                        temp = (Integer) tabela.getValueAt(i,j);
-                        if ((j + 1) < tabela.getRowCount()) {
-                            tempk = (Integer) tabela.getValueAt(i,j+1);
-                        }
-                        if (temp > max) {
-                            max = temp;
-                        } else if (tempk > max) {
-                            max = tempk;
-                        }
-                    } catch (NumberFormatException ee) {
-                        ee.printStackTrace();
-                    }
-                }
-            }
-            wynik.setText(Integer.toString(max));
+            tableModel.showMaximum();
         }
     });
     autor.addActionListener(new ActionListener() {
@@ -307,16 +324,70 @@ public void obrys (){
             showAuthor();
         }
     });
-
-
-
-
-
-
     panel.add(menu);
     ramka.repaint();
     ramka.setVisible(true);
+
     }
+
+    public void chart() {
+        getValues();
+        final CategoryAxis yAxis = new CategoryAxis();
+        final NumberAxis xAxis = new NumberAxis();
+        final BarChart<Number,String> sbc =
+                new BarChart<Number,String>(xAxis, yAxis);
+        xAxis.setTickLabelRotation(90);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Stage stage = new Stage();
+                stage.setTitle("Pie Chart");
+                Scene scene = new Scene(new Group());
+                xAxis.setLabel("Jej ilość");
+                yAxis.setLabel("Liczba");
+                XYChart.Series series1 = new XYChart.Series();
+                for (int i = 0; i < names.size(); i++) {
+                    series1.getData().add(new XYChart.Data<Number,String>(values.get(i),names.get(i)));
+                }
+                sbc.getData().addAll(series1);
+                ((Group) scene.getRoot()).getChildren().add(sbc);
+                chart.setScene(scene);
+            }
+        });
+    }
+
+    public void getValueList() {
+        names = new ArrayList<String>();
+        for (int i = 0; i < tabela.getRowCount(); i++) {
+            for (int j = 0; j < tabela.getColumnCount(); j++) {
+                names.add(Integer.toString((Integer) tabela.getValueAt(i, j)));
+                for (int k = names.size(); k >= 0; k--) {
+                    if (k >= 2) {
+                        if (names.get(names.size() - 1).equals(names.get(k - 2))) {
+                            names.remove(names.size() - 1);
+                            k = 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void getValues() {
+        values = new ArrayList<Double>();
+        for (int k = 0; k < names.size(); k++) {
+            Double number = 0.0;
+            for (int i = 0; i < tabela.getRowCount(); i++) {
+                for (int j = 0; j < tabela.getColumnCount(); j++) {
+                    if (names.get(k).equals(Integer.toString((Integer) tabela.getValueAt(i, j)))) {
+                        number += 1;
+                    }
+                }
+            }
+            values.add(number);
+        }
+    }
+
 
     public void showAuthor(){
         JFrame jFrame = new JFrame("About Me");
@@ -346,10 +417,10 @@ public void obrys (){
     String pobierz = e.getActionCommand();
     switch (pobierz){
         case "zero":
-            for (int i=0;i<tabela.getColumnCount();i++){
-                for (int j=0;j<tabela.getRowCount();j++){
-                    tabela.setValueAt(0,i,j);
-                }
+            tableModel.clearTableValues();
+            if (tableModel.changed){
+                chart();
+                tableModel.changed = false;
             }
             break;
         case "save":
@@ -368,7 +439,11 @@ public void obrys (){
             }
             break;
         case "down":
-        tabela.setValueAt(Integer.parseInt(wpis.getText()),ver,suw_poziom.getValue());
+        tableModel.insertIntoTable(ver,suw_poziom.getValue(),Integer.parseInt(wpis.getText()));
+        if (tableModel.changed){
+            chart();
+            tableModel.changed = false;
+        }
             break;
     }
     }

@@ -1,0 +1,22 @@
+<component name="libraryTable">
+  <library name="log4j-1.2.11">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Desktop/Projektowanie aplikacji/PA_Zadanie_3_LOG_DOC/lib/log4j-1.2.11.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/Projektowanie aplikacji/PA_Zadanie_2_ GUI-JAR/lib/jfreechart-1.0.19.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/Projektowanie aplikacji/PA_Zadanie_2_ GUI-JAR/lib/jcalendar.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/Projektowanie aplikacji/PA_Zadanie_2_ GUI-JAR/lib/l2fprod-common/l2fprod-common/l2fprod-common-7.3-20070317/l2fprod-common-7.3/lib/l2fprod-common-all.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/Projektowanie aplikacji/PA_Zadanie_2_ GUI-JAR/lib/l2fprod-common/l2fprod-common/l2fprod-common-7.3-20070317/l2fprod-common-7.3/lib/l2fprod-common-sandbox.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/Projektowanie aplikacji/PA_Zadanie_2_ GUI-JAR/lib/l2fprod-common/l2fprod-common/l2fprod-common-7.3-20070317/l2fprod-common-7.3/lib/l2fprod-common-totd.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/Projektowanie aplikacji/PA_Zadanie_2_ GUI-JAR/lib/l2fprod-common/l2fprod-common/l2fprod-common-7.3-20070317/l2fprod-common-7.3/lib/l2fprod-common-sheet.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/Projektowanie aplikacji/PA_Zadanie_2_ GUI-JAR/lib/l2fprod-common/l2fprod-common/l2fprod-common-7.3-20070317/l2fprod-common-7.3/lib/l2fprod-common-tasks.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/Projektowanie aplikacji/PA_Zadanie_2_ GUI-JAR/lib/l2fprod-common/l2fprod-common/l2fprod-common-7.3-20070317/l2fprod-common-7.3/lib/l2fprod-common-springrcp.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/Projektowanie aplikacji/PA_Zadanie_2_ GUI-JAR/lib/l2fprod-common/l2fprod-common/l2fprod-common-7.3-20070317/l2fprod-common-7.3/lib/l2fprod-common-shared.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/Projektowanie aplikacji/PA_Zadanie_2_ GUI-JAR/lib/l2fprod-common/l2fprod-common/l2fprod-common-7.3-20070317/l2fprod-common-7.3/lib/l2fprod-common-fontchooser.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/Projektowanie aplikacji/PA_Zadanie_2_ GUI-JAR/lib/l2fprod-common/l2fprod-common/l2fprod-common-7.3-20070317/l2fprod-common-7.3/lib/l2fprod-common-outlookbar.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/Projektowanie aplikacji/PA_Zadanie_2_ GUI-JAR/lib/l2fprod-common/l2fprod-common/l2fprod-common-7.3-20070317/l2fprod-common-7.3/lib/l2fprod-common-directorychooser.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/Projektowanie aplikacji/PA_Zadanie_2_ GUI-JAR/lib/l2fprod-common/l2fprod-common/l2fprod-common-7.3-20070317/l2fprod-common-7.3/lib/l2fprod-common-buttonbar.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
